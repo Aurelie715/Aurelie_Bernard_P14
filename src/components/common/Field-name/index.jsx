@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react";
+import styles from "./style.module.scss";
 
-export default function FieldName({name, inputId}) {
+export default function FieldName({ name, inputId }) {
   return (
     <>
-        <label htmlFor={inputId}>{name}</label>
+      <label className={styles["label-name"]} htmlFor={inputId}>{name}</label>
     </>
-  )
+  );
 }

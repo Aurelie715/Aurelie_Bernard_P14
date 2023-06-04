@@ -1,0 +1,20 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 50px 40px 50px;
+  height: 60px;
+  .title {
+    color: #6f8738;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .nav {
+    color: #333;
+    font-size: 16px;
+    text-decoration: none;
+    &:hover {
+      color: #6f8738;
+    }
+  }
+}
