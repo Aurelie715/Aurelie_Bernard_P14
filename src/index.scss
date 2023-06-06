@@ -1,23 +1,71 @@
 body {
   margin: 0;
-  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
-//Select package
+//SELECT PACKAGE
+
+.hrnet-oc-select {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+// utiliser tabindex sur ma div pour utiliser le focus
+// .hrnet-oc-select:focus {
+//   border: 1px #93ad3c solid;
+//     box-shadow: 0 0 0 4px #cde090;
+// }
+
 .class-name-value {
-  color: red;
+  font-size: 13px;
+}
+
+.class-name-select {
+  height: 35px;
+  width: 100%;
+  border: 1px #b2b2b2 solid;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 10px;
+  box-sizing: border-box;
+  
+}
+
+.class-name-icon {
+  font-size: 13px;
+  color: #b2b2b2;
+}
+
+.class-name-container {
+  height: 90px;
+  overflow: auto;
+  background-color: white;
+  padding-left: 10px;
+}
+
+.class-name-list {
+  list-style: none;
+  padding: 0;
+}
+
+.class-name-element {
+  font-size: 13px;
+  line-height: 25px;
 }
 
 //SCSS of all input
 input {
   border: 1px #b2b2b2 solid;
-
   padding: 10px;
   margin-bottom: 15px;
   box-sizing: border-box;
@@ -27,4 +75,9 @@ input {
     border: 1px #93ad3c solid;
     box-shadow: 0 0 0 4px #cde090;
   }
+}
+
+//DATEPICKER PACKAGE
+.react-datepicker__day--selected {
+  background-color: #93ad3c !important;
 }

@@ -9,12 +9,21 @@
     font-size: 24px;
     font-weight: bold;
   }
-  .nav {
-    color: #333;
-    font-size: 16px;
-    text-decoration: none;
-    &:hover {
+  .menu {
+    width: 270px;
+    display: flex;
+    justify-content: space-between;
+    .nav {
+      color: #333;
+      font-size: 16px;
+      text-decoration: none;
+      &:hover {
+        color: #6f8738;
+      }
+    }
+    .active {
       color: #6f8738;
+      text-decoration: underline;
     }
   }
 }

@@ -32,6 +32,7 @@ const InputDate = ({id}) => {
   ];
   return (
     <DatePicker
+    showPopperArrow={false}
       renderCustomHeader={({
         date,
         changeYear,

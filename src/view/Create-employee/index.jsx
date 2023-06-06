@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "../../components/Header";
 import Field from "../../components/Field";
 import Datepicker from "../../components/Datepicker";
 import Select from "../../components/Select";
 import Title from "../../components/common/Title";
-import styles from './style.module.scss'
+import styles from "./style.module.scss";
+import Button from "../../components/common/Button";
 
 const states = [
   {
@@ -245,28 +245,53 @@ const states = [
   },
 ];
 
-const department = ["Sales", "Marketing", "Engineering", "Human Resources", "Legal"];
+const department = [
+  "Sales",
+  "Marketing",
+  "Engineering",
+  "Human Resources",
+  "Legal",
+];
 
 export default function CreateEmployee() {
   return (
     <>
-      <Header />
-      <div className={styles["main-container"]}>
-        <Title title="Create Employee" />
+      <Title title="Create Employee" />
+      <form>
         <Field type="text" id="first-name" name="First Name" />
         <Field type="text" id="last-name" name="Last Name" />
         <Datepicker id="date-of-birth" name="Date of Birth" />
         <Datepicker id="start-date" name="Start Date" />
-        
         <div className={styles["address-container"]}>
-        <h2 className={styles.subtitle}>Address</h2>
+          <h2 className={styles.subtitle}>Address</h2>
           <Field type="text" id="street" name="Street" />
           <Field type="text" id="city" name="City" />
-          <Select name="State" list={states.map((state) => state.name)} value="Alabama" classNameValue="class-name-value" />
+          <Select
+            name="State"
+            list={states.map((state) => state.name)}
+            value="Alabama"
+            classNameSelect="class-name-select"
+            classNameValue="class-name-value"
+            classNameIcon="class-name-icon"
+            classNameListContainer="class-name-container"
+            classNameList="class-name-list"
+            classNameElement="class-name-element"
+          />
           <Field type="number" id="zip-code" name="Zip Code" />
         </div>
-        <Select name="Department" list={department} value="Engineering" classNameValue="class-name-value" />
-      </div>
+        <Select
+          name="Department"
+          list={department}
+          value="Engineering"
+          classNameSelect="class-name-select"
+          classNameValue="class-name-value"
+          classNameIcon="class-name-icon"
+          classNameListContainer="class-name-container"
+          classNameList="class-name-list"
+          classNameElement="class-name-element"
+        />
+        <Button />
+      </form>
     </>
   );
 }
