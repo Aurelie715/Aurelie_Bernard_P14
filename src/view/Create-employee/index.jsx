@@ -6,6 +6,7 @@ import Title from "../../components/common/Title";
 import styles from "./style.module.scss";
 import Button from "../../components/common/Button";
 
+
 const states = [
   {
     name: "Alabama",
@@ -254,6 +255,7 @@ const department = [
 ];
 
 export default function CreateEmployee() {
+  
   return (
     <>
       <Title title="Create Employee" />
