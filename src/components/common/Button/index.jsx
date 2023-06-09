@@ -31,7 +31,7 @@ export default function Button() {
           onRequestClose={closeModal}
           style={{
             overlay: {
-              backgroundColor: "black",
+              backgroundColor: "rgba(0,0,0, 0.8)",
             },
             content: {
               top: "50%",
