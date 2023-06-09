@@ -8,7 +8,7 @@ export default function Select({list=[], value, classNameSelect, classNameValue,
   return (
     <div>
         <FieldName name={name}/>
-        <SelectMenu list={list} value={value} classNameValue={classNameValue}/>
+        <SelectMenu list={list} value={value} classNameSelect={classNameSelect} classNameValue={classNameValue} classNameIcon={classNameIcon} classNameListContainer={classNameListContainer} classNameList={classNameList} classNameElement={classNameElement}/>
     </div>
   )
 }
