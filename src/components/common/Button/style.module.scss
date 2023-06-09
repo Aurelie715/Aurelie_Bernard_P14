@@ -1,18 +1,8 @@
-.button-container {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 50px;
-    .button {
-        width: 180px;
-        height: 35px;
-        border-radius: unset;
-        border: unset;
-        background-color: #6f8738;
-        color: white;
-    }
+.button {
+  width: 180px;
+  height: 35px;
+  border-radius: unset;
+  border: unset;
+  background-color: #6f8738;
+  color: white;
 }
-
-

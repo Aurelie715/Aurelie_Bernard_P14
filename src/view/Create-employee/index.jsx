@@ -5,7 +5,7 @@ import Select from "../../components/Select";
 import Title from "../../components/common/Title";
 import styles from "./style.module.scss";
 import Button from "../../components/common/Button";
-
+import Modal from "react-modal";
 
 const states = [
   {
@@ -246,16 +246,25 @@ const states = [
   },
 ];
 
-const department = [
-  "Sales",
-  "Marketing",
-  "Engineering",
-  "Human Resources",
-  "Legal",
-];
+const department = ["Sales", "Marketing", "Engineering", "Human Resources", "Legal"];
 
 export default function CreateEmployee() {
-  
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = "#000";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
     <>
       <Title title="Create Employee" />
@@ -281,19 +290,37 @@ export default function CreateEmployee() {
           />
           <Field type="number" id="zip-code" name="Zip Code" />
         </div>
-        <Select
-          name="Department"
-          list={department}
-          value="Engineering"
-          classNameSelect="class-name-select"
-          classNameValue="class-name-value"
-          classNameIcon="class-name-icon"
-          classNameListContainer="class-name-container"
-          classNameList="class-name-list"
-          classNameElement="class-name-element"
-        />
-        <Button />
+        <Select name="Department" list={department} value="Engineering" classNameSelect="class-name-select" classNameValue="class-name-value" classNameIcon="class-name-icon" classNameListContainer="class-name-container" classNameList="class-name-list" classNameElement="class-name-element" />
+        <div className={styles["button-container"]}>
+          <Button text="Save" onClick={openModal} />
+        </div>
       </form>
+      <div>
+        <Modal
+          appElement={document.getElementById("root") || undefined}
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={{
+            overlay: {
+              backgroundColor: "rgba(0,0,0, 0.8)",
+            },
+            content: {
+              top: "50%",
+              left: "50%",
+              right: "auto",
+              bottom: "auto",
+              marginRight: "-50%",
+              transform: "translate(-50%, -50%)",
+              borderRadius: 0,
+            },
+          }}
+          contentLabel="Modal"
+        >
+          <p ref={(_subtitle) => (subtitle = _subtitle)}>Employee Created!</p>
+          <Button text="Close" onClick={closeModal} />
+        </Modal>
+      </div>
     </>
   );
 }

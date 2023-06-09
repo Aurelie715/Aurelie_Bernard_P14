@@ -1,13 +1,5 @@
 import "./App.scss";
-import { SelectMenu } from "select-menu-hrnet-oc";
-import {
-  Route,
-  redirect,
-  createBrowserRouter,
-  createRoutesFromElements,
-  Outlet,
-  RouterProvider,
-} from "react-router-dom";
+import { Route, createBrowserRouter, createRoutesFromElements, Outlet, RouterProvider } from "react-router-dom";
 import CreateEmployee from "./view/Create-employee/index.jsx";
 import CurrentEmployees from "./view/Current-employees/index.jsx";
 import Header from "./components/Header";
