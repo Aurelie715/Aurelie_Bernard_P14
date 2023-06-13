@@ -1,11 +1,14 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Field from "../../components/Field";
-import Datepicker from "../../components/Datepicker";
+// import Datepicker from "../../components/Datepicker";
 import Select from "../../components/Select";
 import Title from "../../components/common/Title";
 import styles from "./style.module.scss";
 import Button from "../../components/common/Button";
 import Modal from "react-modal";
+import { lazy } from 'react';
+
+const Datepicker = lazy(() => import('../../components/Datepicker'));
 
 const states = [
   {
@@ -271,8 +274,11 @@ export default function CreateEmployee() {
       <form>
         <Field type="text" id="first-name" name="First Name" />
         <Field type="text" id="last-name" name="Last Name" />
+        <Suspense fallback={"chargement"}>
         <Datepicker id="date-of-birth" name="Date of Birth" />
         <Datepicker id="start-date" name="Start Date" />
+        </Suspense>
+        
         <div className={styles["address-container"]}>
           <h2 className={styles.subtitle}>Address</h2>
           <Field type="text" id="street" name="Street" />
