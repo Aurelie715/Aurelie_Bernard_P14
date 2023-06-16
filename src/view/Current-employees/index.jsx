@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import Title from "../../components/common/Title";
 import DataTable from "react-data-table-component";
+import Context from "../../context";
 
 const columns = [
   {
@@ -66,44 +67,7 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    id: 1,
-    firstName: "Aurélie",
-    lastName: "Bernard",
-    startDate: "06/14/2023",
-    department: "Sales",
-    dateOfBirth: "10/22/1987",
-    street: "3 rue lechat",
-    city: "Koulouch",
-    state: "Alabama",
-    zipCode: "25255"
-  },
-  {
-    id: 2,
-    firstName: "Cyril",
-    lastName: "Bernard",
-    startDate: "06/15/2023",
-    department: "Sales",
-    dateOfBirth: "10/05/1993",
-    street: "3 rue lechat",
-    city: "Koulouch",
-    state: "Alabama",
-    zipCode: "25255"
-  },
-  {
-    id: 3,
-    firstName: "Pierre",
-    lastName: "Dupont",
-    startDate: "06/15/2023",
-    department: "Sales",
-    dateOfBirth: "06/11/1969",
-    street: "3 rue lechien",
-    city: "Koulouch",
-    state: "Alabama",
-    zipCode: "25255"
-  },
-];
+
 
 const TextField = ({ filterText, onFilter }) => <input id="search" type="text" placeholder="Filter By Name" aria-label="Search Input" value={filterText} onChange={onFilter} />;
 
@@ -123,8 +87,9 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => {
 };
 
 export default function CurrentEmployees() {
+  const {employees} = useContext(Context);
   const [filterText, setFilterText] = React.useState("");
-  const filteredItems = data.filter((item) => item.firstName && item.firstName.toLowerCase().includes(filterText.toLowerCase()));
+  const filteredItems = employees.filter((item) => item.firstName && item.firstName.toLowerCase().includes(filterText.toLowerCase()));
 
   const subHeaderComponentMemo = React.useMemo(() => {
     const handleClear = () => {

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useContext, useState } from "react";
 import Field from "../../components/Field";
 // import Datepicker from "../../components/Datepicker";
 import Select from "../../components/Select";
@@ -7,6 +7,7 @@ import styles from "./style.module.scss";
 import Button from "../../components/common/Button";
 import Modal from "react-modal";
 import { lazy } from 'react';
+import Context from "../../context";
 
 const Datepicker = lazy(() => import('../../components/Datepicker'));
 
@@ -252,12 +253,19 @@ const states = [
 const department = ["Sales", "Marketing", "Engineering", "Human Resources", "Legal"];
 
 export default function CreateEmployee() {
-  let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const {employees, setEmployees} = useContext(Context);
 
-  function openModal() {
-    setIsOpen(true);
-  }
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipCode, setZipCode] = useState("");
+
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
@@ -268,21 +276,28 @@ export default function CreateEmployee() {
     setIsOpen(false);
   }
 
+  const submit = (e) => {
+    setIsOpen(true);
+    const lastId = employees.length > 0 ? Math.max(...employees.map((employee) => employee.id)) : 0;
+    const employee = {id: lastId + 1, firstName, lastName, dateOfBirth, startDate, street, city, state, zipCode};
+    setEmployees([...employees, employee]);
+  };
+
   return (
     <>
       <Title title="Create Employee" />
       <form>
-        <Field type="text" id="first-name" name="First Name" />
-        <Field type="text" id="last-name" name="Last Name" />
+        <Field type="text" id="first-name" name="First Name" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} />
+        <Field type="text" id="last-name" name="Last Name" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} />
         <Suspense fallback={"chargement"}>
-        <Datepicker id="date-of-birth" name="Date of Birth" />
-        <Datepicker id="start-date" name="Start Date" />
+          <Datepicker id="date-of-birth" name="Date of Birth" />
+          <Datepicker id="start-date" name="Start Date" />
         </Suspense>
         
         <div className={styles["address-container"]}>
           <h2 className={styles.subtitle}>Address</h2>
-          <Field type="text" id="street" name="Street" />
-          <Field type="text" id="city" name="City" />
+          <Field type="text" id="street" name="Street" value={street} onChange={(e) => setStreet(e.currentTarget.value)} />
+          <Field type="text" id="city" name="City" value={city} onChange={(e) => setCity(e.currentTarget.value)} />
           <Select
             name="State"
             list={states.map((state) => state.name)}
@@ -294,11 +309,11 @@ export default function CreateEmployee() {
             classNameList="class-name-list"
             classNameElement="class-name-element"
           />
-          <Field type="number" id="zip-code" name="Zip Code" />
+          <Field type="number" id="zip-code" name="Zip Code" value={zipCode} onChange={(e) => setZipCode(e.currentTarget.value)} />
         </div>
         <Select name="Department" list={department} value="Engineering" classNameSelect="class-name-select" classNameValue="class-name-value" classNameIcon="class-name-icon" classNameListContainer="class-name-container" classNameList="class-name-list" classNameElement="class-name-element" />
         <div className={styles["button-container"]}>
-          <Button text="Save" onClick={openModal} />
+          <Button text="Save" onClick={submit} />
         </div>
       </form>
       <div>
