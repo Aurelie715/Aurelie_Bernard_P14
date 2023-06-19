@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Title from "../../components/common/Title";
 import DataTable from "react-data-table-component";
 import Context from "../../context";
@@ -18,7 +18,7 @@ const columns = [
     name: "Start Date",
     selector: (row) => row.startDate,
     sortable: true,
-    sortFunction: (a, b) => new Date(a.startDate) - new Date(b.startDate)
+    sortFunction: (a, b) => new Date(a.startDate) - new Date(b.startDate),
   },
   {
     name: "Department",
@@ -43,7 +43,7 @@ const columns = [
 
     //   return 0;
     // },
-    sortFunction: (a, b) => new Date(a.dateOfBirth) - new Date(b.dateOfBirth)
+    sortFunction: (a, b) => new Date(a.dateOfBirth) - new Date(b.dateOfBirth),
   },
   {
     name: "Street",
@@ -67,8 +67,6 @@ const columns = [
   },
 ];
 
-
-
 const TextField = ({ filterText, onFilter }) => <input id="search" type="text" placeholder="Filter By Name" aria-label="Search Input" value={filterText} onChange={onFilter} />;
 
 const ClearButton = ({ onClear }) => (
@@ -79,17 +77,31 @@ const ClearButton = ({ onClear }) => (
 
 const FilterComponent = ({ filterText, onFilter, onClear }) => {
   return (
-  <>
-  <TextField id="search" type="text" placeholder="Filter By Name" aria-label="Search Input" filterText={filterText} onFilter={onFilter} />
-    <ClearButton onClear={onClear}>X</ClearButton>
-  </>
+    <>
+      <TextField id="search" type="text" placeholder="Search" aria-label="Search Input" filterText={filterText} onFilter={onFilter} />
+      <ClearButton onClear={onClear}>X</ClearButton>
+    </>
   );
 };
 
 export default function CurrentEmployees() {
-  const {employees} = useContext(Context);
-  const [filterText, setFilterText] = React.useState("");
-  const filteredItems = employees.filter((item) => item.firstName && item.firstName.toLowerCase().includes(filterText.toLowerCase()));
+  const { employees } = useContext(Context);
+  const [filterText, setFilterText] = useState("");
+  const filteredItems = filterText
+    ? employees.filter((item) => {
+        return (
+          (item.firstName && item.firstName.toLowerCase().includes(filterText.toLowerCase())) ||
+          (item.lastName && item.lastName.toLowerCase().includes(filterText.toLowerCase())) ||
+          (item.startDate && item.startDate.toLowerCase().includes(filterText.toLowerCase())) ||
+          (item.department && item.department.toLowerCase().includes(filterText.toLowerCase())) ||
+          (item.dateOfBirth && item.dateOfBirth.toLowerCase().includes(filterText.toLowerCase())) ||
+          (item.street && item.street.toLowerCase().includes(filterText.toLowerCase())) ||
+          (item.city && item.city.toLowerCase().includes(filterText.toLowerCase())) ||
+          (item.state && item.state.toLowerCase().includes(filterText.toLowerCase())) ||
+          (item.zipCode && item.zipCode.toLowerCase().includes(filterText.toLowerCase()))
+        );
+      })
+    : employees;
 
   const subHeaderComponentMemo = React.useMemo(() => {
     const handleClear = () => {

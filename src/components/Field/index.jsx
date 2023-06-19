@@ -1,6 +1,5 @@
 import React, {useId} from 'react'
 import FieldName from '../common/Field-name'
-import InputText from '../common/Input-text'
 
 
 
@@ -10,7 +9,7 @@ export default function Field({name, value, type, onChange}) {
   return (
     <div>
         <FieldName name={name} inputId={fieldInputId}/>
-        <InputText type={type} id={fieldInputId} value={value} onChange={onChange}/>
+        <input type={type} id={fieldInputId} value={value} onChange={onChange}/>
     </div>
   )
 }
