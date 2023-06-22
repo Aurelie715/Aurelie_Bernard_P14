@@ -282,7 +282,7 @@ export default function CreateEmployee() {
   const submit = () => {
     setIsOpen(true);
     const lastId = employees.length > 0 ? Math.max(...employees.map((employee) => employee.id)) : 0;
-    const employee = { 
+    const newEmployee = { 
       id: lastId + 1, 
       firstName, 
       lastName, 
@@ -294,7 +294,7 @@ export default function CreateEmployee() {
       zipCode,
       department
     };
-    setEmployees([...employees, employee]);
+    setEmployees([...employees, newEmployee]);
   };
 
   return (

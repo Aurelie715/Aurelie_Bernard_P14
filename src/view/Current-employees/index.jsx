@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import Title from "../../components/common/Title";
 import DataTable from "react-data-table-component";
-import Context from "../../context";
+import EmployeesContext from "../../context";
 
 const columns = [
   {
@@ -29,20 +29,6 @@ const columns = [
     name: "Date of Birth",
     selector: (row) => row.dateOfBirth,
     sortable: true,
-    // sortFunction: (a, b) => {
-    //   const dateA = new Date(a.dateOfBirth);
-    //   const dateB = new Date(b.dateOfBirth);
-
-    //   if (dateA > dateB) {
-    //     return 1;
-    //   }
-
-    //   if (dateA < dateB) {
-    //     return -1;
-    //   }
-
-    //   return 0;
-    // },
     sortFunction: (a, b) => new Date(a.dateOfBirth) - new Date(b.dateOfBirth),
   },
   {
@@ -67,25 +53,17 @@ const columns = [
   },
 ];
 
-const TextField = ({ filterText, onFilter }) => <input id="search" type="text" placeholder="Filter By Name" aria-label="Search Input" value={filterText} onChange={onFilter} />;
-
-const ClearButton = ({ onClear }) => (
-  <button type="button" onClick={onClear}>
-    X
-  </button>
-);
-
 const FilterComponent = ({ filterText, onFilter, onClear }) => {
   return (
     <>
-      <TextField id="search" type="text" placeholder="Search" aria-label="Search Input" filterText={filterText} onFilter={onFilter} />
-      <ClearButton onClear={onClear}>X</ClearButton>
+      <input id="search" type="text" placeholder="Search" aria-label="Search Input" onChange={onFilter} value={filterText}/>
+      <button type="button" onClick={onClear}>X</button>
     </>
   );
 };
 
 export default function CurrentEmployees() {
-  const { employees } = useContext(Context);
+  const { employees } = useContext(EmployeesContext);
   const [filterText, setFilterText] = useState("");
   const filteredItems = filterText
     ? employees.filter((item) => {
@@ -103,7 +81,7 @@ export default function CurrentEmployees() {
       })
     : employees;
 
-  const subHeaderComponentMemo = React.useMemo(() => {
+  const subHeaderComponentMemo = useMemo(() => {
     const handleClear = () => {
       if (filterText) {
         setFilterText("");
