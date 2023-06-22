@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import { lazy } from "react";
 import EmployeesContext from "../../context";
 
-const Datepicker = lazy(() => import("../../components/Datepicker"));
+const Datepicker = lazy(() => import("../../components/common/Datepicker"));
 
 const states = [
   {

@@ -1,5 +1,5 @@
 import React, {useId} from 'react'
-import FieldName from '../common/Field-name'
+import Label from '../common/Label'
 
 
 
@@ -8,7 +8,7 @@ export default function Field({name, value, type, onChange}) {
   const fieldInputId = useId()
   return (
     <div>
-        <FieldName name={name} inputId={fieldInputId}/>
+        <Label name={name} inputId={fieldInputId}/>
         <input type={type} id={fieldInputId} value={value} onChange={onChange}/>
     </div>
   )

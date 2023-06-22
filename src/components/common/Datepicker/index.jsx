@@ -27,7 +27,7 @@ const months = [
   "December",
 ];
 
-const InputDate = ({onChange, selected}) => {
+const Datepicker = ({onChange, selected}) => {
   // const handleChange = (date) => {
   //   setStartDate(date);
   //   onChange && onChange(date);
@@ -90,4 +90,4 @@ const InputDate = ({onChange, selected}) => {
   );
 };
 
-export default InputDate;
+export default Datepicker;
