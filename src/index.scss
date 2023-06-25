@@ -1,14 +1,12 @@
 body {
   margin: 0;
-  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 //SELECT PACKAGE
@@ -38,7 +36,10 @@ code {
   justify-content: space-between;
   padding: 0 10px 0 10px;
   box-sizing: border-box;
-  
+  &:focus {
+    border: 1px #93ad3c solid;
+    box-shadow: 0 0 0 4px #cde090;
+  }
 }
 
 .class-name-icon {

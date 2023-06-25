@@ -1,17 +1,20 @@
 import "./App.scss";
 import { Route, createBrowserRouter, createRoutesFromElements, Outlet, RouterProvider } from "react-router-dom";
-import CreateEmployee from "./view/Create-employee/index.jsx";
-import CurrentEmployees from "./view/Current-employees/index.jsx";
 import Header from "./components/Header";
 import EmployeesContext from "./context";
-import { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
+
+const CreateEmployee = lazy(() => import("./view/Create-employee"));
+const CurrentEmployees = lazy(() => import("./view/Current-employees"));
 
 const Root = () => {
   return (
     <>
       <Header />
       <div className="main-container">
-        <Outlet />
+        <Suspense fallback={"chargement"}>
+          <Outlet />
+        </Suspense>
       </div>
     </>
   );
@@ -19,7 +22,7 @@ const Root = () => {
 
 function App() {
   //stocke la liste des employés et la met à jour
-  const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState(JSON.parse(localStorage.getItem("employees")) || []);
 
   const router = createBrowserRouter(
     createRoutesFromElements(

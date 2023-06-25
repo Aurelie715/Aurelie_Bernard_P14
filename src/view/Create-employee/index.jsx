@@ -1,15 +1,15 @@
-import React, { Suspense, useContext, useState } from "react";
+import React, { Suspense, useContext, useState, lazy } from "react";
 import Field from "../../components/Field";
 // import Datepicker from "../../components/Datepicker";
-import Select from "../../components/Select";
+// import Select from "../../components/Select";
 import Title from "../../components/common/Title";
 import styles from "./style.module.scss";
 import Button from "../../components/common/Button";
 import Modal from "react-modal";
-import { lazy } from "react";
 import EmployeesContext from "../../context";
 
-const Datepicker = lazy(() => import("../../components/common/Datepicker"));
+const FieldDate = lazy(() => import("../../components/Field-date"));
+const Select = lazy(() => import("../../components/Select"));
 
 const states = [
   {
@@ -282,19 +282,22 @@ export default function CreateEmployee() {
   const submit = () => {
     setIsOpen(true);
     const lastId = employees.length > 0 ? Math.max(...employees.map((employee) => employee.id)) : 0;
-    const newEmployee = { 
-      id: lastId + 1, 
-      firstName, 
-      lastName, 
-      dateOfBirth: dateOfBirth ? formatDate(dateOfBirth) : "", 
-      startDate: startDate ? formatDate(startDate) : "", 
-      street, 
-      city, 
-      state: states.find(({name}) => name === state).abbreviation, 
+    const newEmployee = {
+      id: lastId + 1,
+      firstName,
+      lastName,
+      dateOfBirth: dateOfBirth ? formatDate(dateOfBirth) : "",
+      startDate: startDate ? formatDate(startDate) : "",
+      street,
+      city,
+      state: states.find(({ name }) => name === state).abbreviation,
       zipCode,
-      department
+      department,
     };
-    setEmployees([...employees, newEmployee]);
+    const newEmployees = [...employees, newEmployee];
+    setEmployees(newEmployees);
+
+    localStorage.setItem("employees", JSON.stringify(newEmployees));
   };
 
   return (
@@ -304,19 +307,36 @@ export default function CreateEmployee() {
         <Field type="text" id="first-name" name="First Name" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} />
         <Field type="text" id="last-name" name="Last Name" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} />
         <Suspense fallback={"chargement"}>
-          <Datepicker id="date-of-birth" name="Date of Birth" selected={dateOfBirth} onChange={(date) => setDateOfBirth(date)} />
-          <Datepicker id="start-date" name="Start Date" selected={startDate} onChange={(date) => setStartDate(date)} />
+          <FieldDate id="date-of-birth" name="Date of Birth" selected={dateOfBirth} onChange={(date) => setDateOfBirth(date)} />
+          <FieldDate id="start-date" name="Start Date" selected={startDate} onChange={(date) => setStartDate(date)} />
         </Suspense>
 
         <div className={styles["address-container"]}>
           <h2 className={styles.subtitle}>Address</h2>
           <Field type="text" id="street" name="Street" value={street} onChange={(e) => setStreet(e.currentTarget.value)} />
           <Field type="text" id="city" name="City" value={city} onChange={(e) => setCity(e.currentTarget.value)} />
+          <Suspense fallback={"chargement"}>
+            <Select
+              name="State"
+              list={states.map((state) => state.name)}
+              value={state}
+              onChange={(state) => setState(state)}
+              classNameSelect="class-name-select"
+              classNameValue="class-name-value"
+              classNameIcon="class-name-icon"
+              classNameListContainer="class-name-container"
+              classNameList="class-name-list"
+              classNameElement="class-name-element"
+            />
+          </Suspense>
+          <Field type="number" id="zip-code" name="Zip Code" value={zipCode} onChange={(e) => setZipCode(e.currentTarget.value)} />
+        </div>
+        <Suspense fallback={"chargement"}>
           <Select
-            name="State"
-            list={states.map((state) => state.name)}
-            value={state}
-            onChange={(state) => setState(state)}
+            name="Department"
+            list={departments}
+            value={department}
+            onChange={(department) => setDepartment(department)}
             classNameSelect="class-name-select"
             classNameValue="class-name-value"
             classNameIcon="class-name-icon"
@@ -324,20 +344,7 @@ export default function CreateEmployee() {
             classNameList="class-name-list"
             classNameElement="class-name-element"
           />
-          <Field type="number" id="zip-code" name="Zip Code" value={zipCode} onChange={(e) => setZipCode(e.currentTarget.value)} />
-        </div>
-        <Select 
-          name="Department" 
-          list={departments} 
-          value={department} 
-          onChange={(department) => setDepartment(department)}
-          classNameSelect="class-name-select" 
-          classNameValue="class-name-value" 
-          classNameIcon="class-name-icon" 
-          classNameListContainer="class-name-container" 
-          classNameList="class-name-list" 
-          classNameElement="class-name-element" 
-          />
+        </Suspense>
         <div className={styles["button-container"]}>
           <Button text="Save" onClick={submit} />
         </div>
