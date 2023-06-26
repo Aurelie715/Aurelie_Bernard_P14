@@ -1,7 +1,5 @@
 import React, { Suspense, useContext, useState, lazy } from "react";
 import Field from "../../components/Field";
-// import Datepicker from "../../components/Datepicker";
-// import Select from "../../components/Select";
 import Title from "../../components/common/Title";
 import styles from "./style.module.scss";
 import Button from "../../components/common/Button";

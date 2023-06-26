@@ -2,6 +2,7 @@ import React, { useContext, useMemo, useState } from "react";
 import Title from "../../components/common/Title";
 import DataTable from "react-data-table-component";
 import EmployeesContext from "../../context";
+import styles from "./style.module.scss";
 
 const columns = [
   {
@@ -18,7 +19,21 @@ const columns = [
     name: "Start Date",
     selector: (row) => row.startDate,
     sortable: true,
-    sortFunction: (a, b) => new Date(a.startDate) - new Date(b.startDate),
+    sortFunction: (a, b) => {
+      if (a.startDate === b.startDate) {
+        return 0;
+      }
+
+      if (!a.startDate) {
+        return -1;
+      }
+
+      if (!b.dateOfBirth) {
+        return 1;
+      }
+
+      return new Date(a.startDate) - new Date(b.startDate);
+    },
   },
   {
     name: "Department",
@@ -29,7 +44,21 @@ const columns = [
     name: "Date of Birth",
     selector: (row) => row.dateOfBirth,
     sortable: true,
-    sortFunction: (a, b) => new Date(a.dateOfBirth) - new Date(b.dateOfBirth),
+    sortFunction: (a, b) => {
+      if (a.dateOfBirth === b.dateOfBirth) {
+        return 0;
+      }
+
+      if (!a.dateOfBirth) {
+        return -1;
+      }
+
+      if (!b.dateOfBirth) {
+        return 1;
+      }
+
+      return new Date(a.dateOfBirth) - new Date(b.dateOfBirth);
+    },
   },
   {
     name: "Street",
@@ -55,9 +84,13 @@ const columns = [
 
 const FilterComponent = ({ filterText, onFilter, onClear }) => {
   return (
-    <>
-      <input id="search" type="text" placeholder="Search" aria-label="Search Input" onChange={onFilter} value={filterText}/>
-      <button type="button" onClick={onClear}>X</button>
+    <><div className={styles.searchbar}>
+      <input id="search" type="text" placeholder="Search" aria-label="Search Input" onChange={onFilter} value={filterText} />
+        <button className={styles["search-button"]} type="button" onClick={onClear}>
+          X
+        </button>
+    </div>
+        
     </>
   );
 };
@@ -94,7 +127,7 @@ export default function CurrentEmployees() {
   return (
     <>
       <Title title="Current Employees" />
-      <DataTable title="Contact List" columns={columns} data={filteredItems} pagination subHeader subHeaderComponent={subHeaderComponentMemo} selectableRows persistTableHead />
+      <DataTable columns={columns} data={filteredItems} pagination subHeader subHeaderComponent={subHeaderComponentMemo} persistTableHead />
     </>
   );
 }
