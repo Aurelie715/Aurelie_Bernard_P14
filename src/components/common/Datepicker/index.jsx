@@ -28,10 +28,6 @@ const months = [
 ];
 
 const Datepicker = ({onChange, selected}) => {
-  // const handleChange = (date) => {
-  //   setStartDate(date);
-  //   onChange && onChange(date);
-  // };
 
   return (
     <DatePicker

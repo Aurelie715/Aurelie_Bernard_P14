@@ -84,13 +84,13 @@ const columns = [
 
 const FilterComponent = ({ filterText, onFilter, onClear }) => {
   return (
-    <><div className={styles.searchbar}>
-      <input id="search" type="text" placeholder="Search" aria-label="Search Input" onChange={onFilter} value={filterText} />
+    <>
+      <div className={styles.searchbar}>
+        <input id="search" type="text" placeholder="Search" aria-label="Search Input" onChange={onFilter} value={filterText} />
         <button className={styles["search-button"]} type="button" onClick={onClear}>
           X
         </button>
-    </div>
-        
+      </div>
     </>
   );
 };

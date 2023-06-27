@@ -21,7 +21,6 @@ const Root = () => {
 };
 
 function App() {
-  //stocke la liste des employés et la met à jour
   const [employees, setEmployees] = useState(JSON.parse(localStorage.getItem("employees")) || []);
 
   const router = createBrowserRouter(
@@ -35,7 +34,6 @@ function App() {
   );
 
   return (
-    //valeur = la liste des employés et un moyen de la mettre à jour
     <EmployeesContext.Provider value={{ employees, setEmployees }}>
       <RouterProvider router={router} />;
     </EmployeesContext.Provider>
